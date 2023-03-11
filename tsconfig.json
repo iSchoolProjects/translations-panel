@@ -1,31 +1,17 @@
 {
-  "ts-node": {
-    "files": true // https://stackoverflow.com/a/65564218
-  },
-  "compilerOptions": {
-    // these particular options come from the recommended node 12 config at
-    // https://github.com/tsconfig/bases/blob/main/bases/node12.json
-    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string", "dom"],
-    "module": "commonjs",
-    "target": "es2019",
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "incremental": true,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "types": ["reflect-metadata", "jest"],
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    
-  },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-  ],
-  "exclude": ["node_modules"],
+   "compilerOptions": {
+      "lib": [
+         "es5",
+         "es6","es2019", "es2020.promise", "es2020.bigint", "es2020.string", "dom"
+      ],
+      "target": "es5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "esModuleInterop": true,
+   },
+   "exclude": ["frontend"]
 }
