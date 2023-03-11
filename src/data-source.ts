@@ -3,6 +3,7 @@ dontenv.config();
 import 'reflect-metadata';
 import {DataSource} from 'typeorm';
 import {MysqlConnectionOptions} from 'typeorm/driver/mysql/MysqlConnectionOptions';
+import {LanguageVersionSubscriber} from './subscriber/language-version.subscriber';
 
 export const AppDataSource = new DataSource({
   type: process.env.DB_TYPE as unknown as MysqlConnectionOptions['type'],
@@ -15,5 +16,6 @@ export const AppDataSource = new DataSource({
   logging: true,
   entities: ['src/entity/**/*{.ts,.js}'],
   migrations: ['src/migrations/**/*{.ts,.js}'],
-  subscribers: ['src/subscriber/**/*{.ts,.js}'],
+  subscribers: [LanguageVersionSubscriber],
+  // ['src/subscriber/**/*.subscriber{.ts,.js}'],
 });

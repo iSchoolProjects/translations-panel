@@ -1,8 +1,8 @@
 import {Entity, Column, ManyToOne, Index, OneToMany} from 'typeorm';
 import {ForeignKeyMetadata} from 'typeorm/metadata/ForeignKeyMetadata';
 import {BaseEntity} from '../base/entity';
-import {Language} from './Language';
-import {Translations} from './Translations';
+import {Language} from './language';
+import {Translations} from './translations';
 
 @Entity()
 @Index(['name', 'language'], {unique: true})

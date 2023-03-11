@@ -1,5 +1,5 @@
 import {AppDataSource} from '../data-source';
-import {NameSpace} from '../entity/Namespace';
+import {NameSpace} from '../entity/namespace';
 
 export class NamespaceRepository {
   private readonly query = AppDataSource.getRepository(NameSpace);

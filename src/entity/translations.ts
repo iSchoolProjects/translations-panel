@@ -1,7 +1,7 @@
 import {Entity, Column, ManyToOne, Index} from 'typeorm';
 import {BaseEntity} from '../base/entity';
-import {Language} from './Language';
-import {NameSpace} from './Namespace';
+import {Language} from './language';
+import {NameSpace} from './namespace';
 
 @Entity()
 @Index(['key', 'language', 'namespace'], {unique: true})

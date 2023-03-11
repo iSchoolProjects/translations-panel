@@ -1,5 +1,5 @@
 import {AppDataSource} from '../data-source';
-import {Translations} from '../entity/Translations';
+import {Translations} from '../entity/translations';
 
 export class NamespaceRepository {
   private readonly query = AppDataSource.getRepository(Translations);

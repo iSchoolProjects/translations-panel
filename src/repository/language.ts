@@ -1,5 +1,5 @@
 import {AppDataSource} from '../data-source';
-import {Language} from '../entity/Language';
+import {Language} from '../entity/language';
 
 export class LanguageRepository {
   private readonly query = AppDataSource.getRepository(Language);

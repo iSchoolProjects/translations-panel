@@ -1,8 +1,8 @@
 import {Entity, Column, OneToOne, OneToMany, Index, JoinColumn} from 'typeorm';
 import {BaseEntity} from '../base/entity';
-import {LanguageVersion} from './LanguageVersion';
-import {NameSpace} from './Namespace';
-import {Translations} from './Translations';
+import {LanguageVersion} from './language-version';
+import {NameSpace} from './namespace';
+import {Translations} from './translations';
 
 @Entity()
 @Index(['name'], {unique: true})
@@ -10,7 +10,7 @@ export class Language extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({default: false})
   isDisabled: boolean;
 
   @OneToOne(() => LanguageVersion)
