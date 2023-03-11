@@ -1,0 +1,6 @@
+@import "../components/toastify";
+@import "../components/pagination";
+
+.centered-content {
+  @extend .d-flex, .align-items-center, .justify-content-center;
+}

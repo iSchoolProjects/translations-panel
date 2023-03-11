@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "[Husky] pre-push hook running" && npm run lint:check && npm run prettier:fix && npm run css:lint

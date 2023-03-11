@@ -1,0 +1,36 @@
+{
+  "printWidth": 140,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": false,
+  "arrowParens": "always",
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "css",
+  "endOfLine": "lf",
+  "importOrderParserPlugins": [
+    "typescript",
+    "decorators-legacy"
+  ],
+  "importOrder": [
+    "^(react-(.*)$)|^(react$)",
+    "^components/(.*)$",
+    "^@material-ui/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]"
+  ],
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "overrides": [
+    {
+      "files": "*.tsx",
+      "options": {
+        "parser": "babel-ts"
+      }
+    }
+  ]
+}
