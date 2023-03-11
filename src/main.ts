@@ -11,14 +11,12 @@ routes.get('/hello', (req, res) => {
   res.json({hi: 'hello'});
 });
 const corsOptions = {
-  origin: function (origin: string, callback: any) {
+  origin: function (_: string, callback: any) {
     callback(null, true);
   },
 };
 app.use(cors(corsOptions));
 app.use(routes);
 app.listen(3001, () => {
-  const a = new FSUtils();
-  a.createDirectory('common');
   console.log('Running');
 });
