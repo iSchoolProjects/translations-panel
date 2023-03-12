@@ -16,6 +16,6 @@ export class NameSpace extends BaseEntity {
   @ManyToOne(() => Language, (language) => language.namespace)
   language: Language;
 
-  @OneToMany(() => Translations, (translations) => translations.language)
+  @OneToMany(() => Translations, (translations) => translations.namespace)
   translations: Translations[];
 }

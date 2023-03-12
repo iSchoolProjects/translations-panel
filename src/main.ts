@@ -5,9 +5,10 @@ import express, {Router} from 'express';
 import cors from 'cors';
 import {FSUtils} from './utilities/file_system';
 import {AppDataSource} from './data-source';
+import {LanguageVersionController} from './controller/language-version';
+import bodyParser from 'body-parser';
+import {LanguageController} from './controller/language';
 const app = express();
-
-const routes = express.Router();
 
 // establish database connection
 AppDataSource.initialize()
@@ -18,17 +19,17 @@ AppDataSource.initialize()
     console.error('Error during Data Source initialization:', err);
   });
 
-routes.get('/hello', (req, res) => {
-  console.log(req.headers);
-  res.json({hi: 'hello'});
-});
 const corsOptions = {
   origin: function (_: string, callback: any) {
     callback(null, true);
   },
 };
+
+app.use(bodyParser.json());
 app.use(cors(corsOptions));
-app.use(routes);
+app.use('/language-version', new LanguageVersionController().attach(app));
+
+app.use('/language', new LanguageController().attach(app));
 app.listen(process.env.APP_PORT, () => {
   console.log('Running', process.env.APP_PORT);
 });

@@ -1,21 +1,27 @@
 import {Language} from '../entity/language';
 import {LanguageRepository} from '../repository/language';
 
-interface ILanguageUpdate {
+interface ILanguageCreate {
   name: string;
+}
+interface ILanguageUpdate extends ILanguageCreate {
   isDisabled: boolean;
 }
 
-export class LanguageVersionService {
+export class LanguageService {
   private readonly repository = new LanguageRepository();
+
+  public async getMany(): Promise<Language[]> {
+    return this.repository.getMany();
+  }
 
   public async get(language: string): Promise<Language> {
     return this.repository.getOne(language);
   }
 
-  public async create(name: string): Promise<Language> {
+  public async create(newLaguage: ILanguageCreate): Promise<Language> {
     const language = new Language();
-    language.name = name;
+    language.name = newLaguage.name;
     return this.repository.create(language);
   }
 

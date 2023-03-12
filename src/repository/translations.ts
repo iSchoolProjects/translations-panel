@@ -1,7 +1,7 @@
 import {AppDataSource} from '../data-source';
 import {Translations} from '../entity/translations';
 
-export class NamespaceRepository {
+export class TranslationRepository {
   private readonly query = AppDataSource.getRepository(Translations);
 
   public async getOne(key: string, namespaceId: number, languageId: number): Promise<Translations> {

@@ -7,14 +7,21 @@ import {
   SoftRemoveEvent,
   RecoverEvent,
 } from 'typeorm';
+import {Language} from '../entity/language';
+import {LanguageVersion} from '../entity/language-version';
+import {LanguageVersionService} from '../service/language-version';
 
 @EventSubscriber()
 export class LanguageVersionSubscriber implements EntitySubscriberInterface {
+  private readonly languageVersionService = new LanguageVersionService();
   /**
    * Called after entity insertion.
    */
   afterInsert(event: InsertEvent<any>) {
     console.log(`AFTER ENTITY INSERTED: `, event.entity);
+    if (event.entity instanceof Language) {
+      this.languageVersionService.create(event.entity);
+    }
   }
 
   /**

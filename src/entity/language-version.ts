@@ -4,8 +4,11 @@ import {Language} from './language';
 
 @Entity()
 export class LanguageVersion extends BaseEntity {
-  @Column()
+  @Column({type: 'bigint'})
   version: number;
+
+  @Column()
+  languageId: number;
 
   @OneToOne(() => Language)
   @JoinColumn()
