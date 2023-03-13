@@ -1,8 +1,9 @@
 import express, {NextFunction, Request, Response} from 'express';
 import {Language} from '../entity/language';
 import {LanguageService} from '../service/language';
-import {PayloadError} from '../utilities/errors/custom-error';
+import {InalidValueError, PayloadError} from '../utilities/errors/custom-error';
 import {ErrorHandling} from '../utilities/errors/error-handling';
+import countries from '../../list.json';
 
 export class LanguageController {
   private readonly routes = express.Router();
@@ -14,6 +15,13 @@ export class LanguageController {
     for (const key of required) {
       if (!values[key]) throw new PayloadError(key);
     }
+    const findCountry = countries.find((country) => country.code === values.name);
+    if (!findCountry) throw new InalidValueError(values.name, 'name');
+  }
+
+  static getLanguageValidation(values: any) {
+    const findCountry = countries.find((country) => country.code === values);
+    if (!findCountry) throw new InalidValueError(values, 'name');
   }
 
   public attach(app?: Express.Application) {
@@ -22,6 +30,7 @@ export class LanguageController {
 
   private async get(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
+      LanguageController.getLanguageValidation(req.params.language);
       const result = await this.service.get(req.params.language);
       return res.status(200).json(result);
     } catch (error) {

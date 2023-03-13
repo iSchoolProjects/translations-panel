@@ -17,6 +17,10 @@ export class ErrorHandling {
     if (error.name === 'MissingArgument') {
       return this.missingArgument((error as unknown as any).requiredArguments);
     }
+    if (error.name === 'InvalidValue') {
+      const {invalidValue, key} = error as unknown as any;
+      return this.invalidValue(key, invalidValue);
+    }
   }
 
   private notFound(value: unknown) {
@@ -36,6 +40,12 @@ export class ErrorHandling {
   private missingArgument(values: unknown) {
     return {
       message: `Missing ${values} in the playload `,
+      code: 400,
+    };
+  }
+  private invalidValue(key: string, value: unknown) {
+    return {
+      message: `Invalid value ${value} as ${key}`,
       code: 400,
     };
   }
