@@ -1,9 +1,11 @@
 //Colors
-$primary: #05bbc9;
-$secondary: #97a5a8;
-$danger: #ed4052;
-$warning: #fc9d79;
-$info: purple;
+$primary: #7F56D9;
+$secondary: #3E4784;
+$danger: #D92D20;
+$warning: #DC6803;
+$gray: #475467;
+$success: #039855;
+$info: #088AB2;
 $white: #fff;
 
 // Border radius
@@ -14,6 +16,8 @@ $default-border-radius: 4px;
   secondary: $secondary;
   danger: $danger;
   warning: $warning;
+  gray: $gray;
+  success: $success;
   info: $info;
   white: $white;
 }

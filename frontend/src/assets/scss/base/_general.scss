@@ -1,6 +1,21 @@
+@import "../base/typography";
 @import "../components/toastify";
+@import "../components/cards";
 @import "../components/pagination";
+@import "../components/layout";
 
 .centered-content {
   @extend .d-flex, .align-items-center, .justify-content-center;
+}
+
+.row {
+  @extend .w-100, .mx-0;
+}
+
+body {
+  background: #FCFCFE;
+}
+
+.min-100vh {
+  min-height: 100vh;
 }

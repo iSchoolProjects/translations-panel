@@ -1,0 +1,12 @@
+.side-bar {
+  background: $white;
+  border-right: 1px solid #D0D5DD;
+  @extend .px-0, .min-100vh;
+
+  .active-tab {
+    a {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+}
