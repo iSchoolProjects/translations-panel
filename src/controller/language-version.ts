@@ -1,7 +1,7 @@
 import express, {NextFunction, Request, Response} from 'express';
 import {LanguageVersion} from '../entity/language-version';
 import {LanguageVersionService} from '../service/language-version';
-import {ErrorHandling} from '../utilities/error-handling';
+import {ErrorHandling} from '../utilities/errors/error-handling';
 
 export class LanguageVersionController {
   private readonly routes = express.Router();

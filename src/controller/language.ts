@@ -1,8 +1,8 @@
 import express, {NextFunction, Request, Response} from 'express';
 import {Language} from '../entity/language';
 import {LanguageService} from '../service/language';
-import {PayloadError} from '../utilities/custom-error';
-import {ErrorHandling} from '../utilities/error-handling';
+import {PayloadError} from '../utilities/errors/custom-error';
+import {ErrorHandling} from '../utilities/errors/error-handling';
 
 export class LanguageController {
   private readonly routes = express.Router();
