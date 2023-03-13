@@ -1,3 +1,4 @@
+import {UpdateResult} from 'typeorm';
 import {Language} from '../entity/language';
 import {LanguageRepository} from '../repository/language';
 
@@ -25,7 +26,7 @@ export class LanguageService {
     return this.repository.create(language);
   }
 
-  public async update(update: ILanguageUpdate): Promise<Language> {
+  public async update(update: ILanguageUpdate): Promise<UpdateResult> {
     const language = await this.repository.getOne(update.name);
     Object.assign(language, update);
     return this.repository.update(language);

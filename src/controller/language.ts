@@ -6,7 +6,7 @@ export class LanguageController {
   private readonly routes = express.Router();
   private readonly service = new LanguageService();
 
-  public attach(app: Express.Application) {
+  public attach(app?: Express.Application) {
     return this.routes.get('/:language', this.get.bind(this)).post('/', this.create.bind(this));
   }
 

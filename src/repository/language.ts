@@ -1,3 +1,4 @@
+import {UpdateResult} from 'typeorm';
 import {AppDataSource} from '../data-source';
 import {Language} from '../entity/language';
 
@@ -16,7 +17,9 @@ export class LanguageRepository {
     return this.query.save(Language);
   }
 
-  public async update(Language: Language): Promise<Language> {
-    return this.query.save(Language);
+  public async update(Language: Language): Promise<UpdateResult> {
+    const getLanguage = await this.getOne(Language.name);
+    Object.assign(getLanguage, Language);
+    return this.query.update({id: getLanguage.id}, getLanguage);
   }
 }

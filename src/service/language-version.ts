@@ -8,7 +8,7 @@ export class LanguageVersionService {
   private readonly language = new LanguageRepository();
 
   public async get(language: string): Promise<LanguageVersion> {
-    return (await this.language.getOne(language))?.languageVersion;
+    return this.repository.getOne(language);
   }
 
   public async create(language: Language): Promise<LanguageVersion> {

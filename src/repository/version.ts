@@ -7,7 +7,7 @@ export class LanguageVersionRepository {
   public async getOne(name: string): Promise<LanguageVersion> {
     return this.query
       .createQueryBuilder('languageVersion')
-      .innerJoinAndSelect('languageVersion.language', 'lang')
+      .innerJoin('languageVersion.language', 'lang')
       .where('lang.name=:name', {name})
       .getOneOrFail();
   }
