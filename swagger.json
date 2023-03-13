@@ -21,6 +21,21 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/enums/countries": {
+      "get": {
+        "tags": ["Enums data"],
+        "summary": "Gets list of valid ISO country codes",
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Countries"
+            }
+          }
+        }
+      }
+    },
     "/language-version/{language}": {
       "get": {
         "tags": ["Language version"],
@@ -216,6 +231,17 @@
         }
       },
       "$ref": "#/definitions/Language"
+    },
+    "Countries": {
+      "type": "array",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
     }
   }
 }

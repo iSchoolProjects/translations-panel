@@ -1,7 +1,13 @@
+import {EnumsController} from './enums';
 import {LanguageController} from './language';
 import {LanguageVersionController} from './language-version';
 
 const routesMap = [
+  {
+    route: '/enums',
+    controller: EnumsController,
+  },
+  ,
   {
     route: '/language',
     controller: LanguageController,

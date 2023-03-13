@@ -32,7 +32,7 @@ export class LanguageController {
     try {
       LanguageController.getLanguageValidation(req.params.language);
       const result = await this.service.get(req.params.language);
-      return res.status(200).json(result);
+      return res.status(201).json(result);
     } catch (error) {
       const {message, code} = this.errorHandler.getErrorType(error, req.params.language);
       res.status(code).json({message});
