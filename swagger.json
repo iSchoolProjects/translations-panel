@@ -1,0 +1,221 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My User Project CRUD",
+    "description": "My User Project Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Translations",
+      "description": "API for translations panel in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/language-version/{language}": {
+      "get": {
+        "tags": ["Language version"],
+        "summary": "Get language version for given language",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "language",
+            "description": "ISO code of language. Example en-US",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LanguageVersion"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "LanguageVersion not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/language/{language}": {
+      "get": {
+        "tags": ["Language data"],
+        "summary": "Get data for given language",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "language",
+            "description": "ISO code of language. Example en-US",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Language"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Language en-ES not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/language/": {
+      "post": {
+        "tags": ["Language data"],
+        "summary": "Creates new language",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "en-UK",
+                  "description": "ISO code of language. Example en-US"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Language"
+            }
+          },
+          "409": {
+            "description": "DUPLICATE",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Value {\"name\":\"en-UK\"} already exists"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing argument",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Missing name in the playload"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LanguageVersion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1,
+          "description": "Id of entity"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-03-12T17:07:59.581Z",
+          "format": "date",
+          "description": "Date of entity creation"
+        },
+        "updateAt": {
+          "type": "string",
+          "example": "2023-03-12T17:07:59.581Z",
+          "format": "date",
+          "description": "Date of entity update"
+        },
+        "version": {
+          "type": "number",
+          "example": 12215474745467,
+          "description": "Unix time of last change"
+        },
+        "languageId": {
+          "type": "number",
+          "example": 1,
+          "description": "Id of language entity"
+        }
+      },
+      "$ref": "#/definitions/LanguageVersion"
+    },
+    "Language": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1,
+          "description": "Id of language entity"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": 12215474745467,
+          "description": "Unix time of last change"
+        },
+        "updateAt": {
+          "type": "string",
+          "example": 12215474745467,
+          "description": "Unix time of last change"
+        },
+        "name": {
+          "type": "string",
+          "example": "en-US",
+          "description": "ISO based language code"
+        },
+        "isDisabled": {
+          "type": "boolean",
+          "example": false,
+          "description": "Shows if language is in use"
+        },
+        "namespace": {
+          "type": "array",
+          "description": "Array of nasespaces for given language",
+          "items": {}
+        }
+      },
+      "$ref": "#/definitions/Language"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+export class ErrorHandling {
+  private readonly entity: any;
+
+  constructor(entity: any) {
+    this.entity = entity;
+  }
+
+  public getErrorType(error: Error, values?: unknown) {
+    if (error.name === 'EntityNotFoundError') {
+      return this.notFound(values);
+    }
+    if (error.name === 'QueryFailedError') {
+      if (error.message.includes('ER_DUP_ENTRY')) {
+        return this.duplicate(values);
+      }
+    }
+    if (error.name === 'MissingArgument') {
+      return this.missingArgument((error as unknown as any).requiredArguments);
+    }
+  }
+
+  private notFound(value: unknown) {
+    return {
+      message: `${this.entity.name} ${value} not found`,
+      code: 404,
+    };
+  }
+
+  private duplicate(values: unknown) {
+    return {
+      message: `Value ${JSON.stringify(values)} already exists`,
+      code: 409,
+    };
+  }
+
+  private missingArgument(values: unknown) {
+    return {
+      message: `Missing ${values} in the playload `,
+      code: 400,
+    };
+  }
+}
