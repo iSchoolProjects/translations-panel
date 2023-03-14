@@ -6,7 +6,7 @@ dotenv.config();
 import 'reflect-metadata';
 
 // express
-import express from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 // typeorm setup
@@ -16,6 +16,7 @@ import {registerRoutes} from './controller';
 // swagger
 import swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from '../swagger.json';
+import {isJSONMiddleware} from './utilities/middleware/json-validation';
 
 const app = express();
 
@@ -37,8 +38,9 @@ const corsOptions = {
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-registerRoutes(app);
+app.use(isJSONMiddleware);
 
+registerRoutes(app);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(process.env.APP_PORT, () => {

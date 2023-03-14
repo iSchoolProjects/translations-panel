@@ -1,11 +1,11 @@
 import {Language} from '../entity/language';
 import {LanguageVersion} from '../entity/language-version';
-import {LanguageRepository} from '../repository/language';
 import {LanguageVersionRepository} from '../repository/version';
+import {LanguageService} from './language';
 
 export class LanguageVersionService {
   private readonly repository = new LanguageVersionRepository();
-  private readonly language = new LanguageRepository();
+  private readonly language = new LanguageService();
 
   public async get(language: string): Promise<LanguageVersion> {
     return this.repository.getOne(language);
@@ -20,7 +20,7 @@ export class LanguageVersionService {
   }
 
   public async update(name: string): Promise<LanguageVersion> {
-    const language = await this.language.getOne(name);
+    const language = await this.language.get(name);
     const languageVersion = new LanguageVersion();
     languageVersion.language = language;
     languageVersion.id = language.languageVersion.id;
