@@ -3,10 +3,28 @@
   border-right: 1px solid #D0D5DD;
   @extend .px-0, .min-100vh;
 
-  .active-tab {
+  .side-bar-item {
     a {
-      color: $primary;
-      font-weight: 600;
+      padding: 1rem 0;
+      cursor: pointer;
+    }
+
+    &:hover {
+      background: #f1f1f9;
+      transition: 0.1s;
+    }
+
+    .side-bar-link {
+      @extend .d-flex, .align-items-center;
+    }
+
+    &.active-tab {
+      background: #f1f1f9;
+
+      .side-bar-link {
+        color: $primary;
+        font-weight: 600;
+      }
     }
   }
 }

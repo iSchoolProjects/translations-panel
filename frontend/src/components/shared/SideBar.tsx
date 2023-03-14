@@ -44,36 +44,29 @@ const SideBar = () => {
   return (
     <Container>
       <Row>
-        <Col xs={12} className='mt-3'>
-          <Link to='/'>
-            <img src='https://itmedia.io/wp-content/uploads/2020/12/logo-1.png' alt='itmedia logo' className='w-50' />
+        <Col xs={12} className="mt-3">
+          <Link to="/">
+            <img src="https://itmedia.io/wp-content/uploads/2020/12/logo-1.png" alt="itmedia logo" className="w-50" />
           </Link>
         </Col>
-        <Col xs={12} className='mt-3'>
-          <InputGroup className='mb-3'>
-            <InputGroup.Text id='basic-addon1'>
+        <Col xs={12} className="mt-3">
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="basic-addon1">
               <Search />
             </InputGroup.Text>
-            <Form.Control
-              placeholder='Search'
-              aria-label='Username'
-              aria-describedby='basic-addon1'
-            />
+            <Form.Control placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" />
           </InputGroup>
         </Col>
-        {sideList?.map(item => {
+        {sideList?.map((item) => {
           return (
-            <Col xs={12} key={item.name} className={`my-2 ${getActiveTab(pathname) === item.name ? 'active-tab' : ''}`}>
-              <Link to={item?.linkTo} className='d-flex align-items-center'>
-                <i className='pe-2'>{item.icon}</i>
-                <span>
-                {item?.name}
-              </span>
+            <Col xs={12} key={item.name} className={`side-bar-item ${getActiveTab(pathname) === item.name ? 'active-tab' : ''}`}>
+              <Link to={item?.linkTo} className="side-bar-link">
+                <i className="pe-2">{item.icon}</i>
+                <span>{item?.name}</span>
               </Link>
             </Col>
           );
         })}
-
       </Row>
     </Container>
   );
