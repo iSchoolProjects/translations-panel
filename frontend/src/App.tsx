@@ -9,21 +9,21 @@ import {useDispatch} from 'react-redux';
 import {commonSlice} from './store/slices/common.slice';
 
 function App() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        toast.onChange((payload) => {
-            payload?.status === 'removed' && dispatch(commonSlice.actions.setMessage(undefined));
-        });
-    }, [dispatch]);
-    return (
-        <>
-            <Loader/>
-            <Toaster/>
-            <Layout>
-                <AppRoutes/>
-            </Layout>
-        </>
-    );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    toast.onChange((payload) => {
+      payload?.status === 'removed' && dispatch(commonSlice.actions.setMessage(undefined));
+    });
+  }, [dispatch]);
+  return (
+    <>
+      <Loader />
+      <Toaster />
+      <Layout>
+        <AppRoutes />
+      </Layout>
+    </>
+  );
 }
 
 export default App;
