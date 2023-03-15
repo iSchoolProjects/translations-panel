@@ -60,13 +60,10 @@ const Layout = ({children}: Props) => {
 
   return (
     <React.Fragment>
-      {/*<Head title="Loading" />*/}
       <div className="nk-app-root">
         <div className="nk-wrap">
           <Header visibility={visibility} toggleSidebar={toggleSidebar} mobileView={mobileView} theme={themeState.header} fixed={true} />
-          {/*<Pages />*/}
-          {children}
-          {/*<Footer />*/}
+          <div className="container mt-5">{children}</div>
         </div>
       </div>
     </React.Fragment>

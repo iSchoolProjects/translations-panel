@@ -36,19 +36,6 @@ const Header = ({fixed, theme, visibility, toggleSidebar, mobileView, className,
             {mobileView ? <MobileMenu data={menu} sidebarToggle={toggleSidebar} mobileView={mobileView} /> : <Menu />}
           </div>
           {visibility && <div className="nk-header-overlay" onClick={toggleSidebar}></div>}
-          {/*<div className="nk-header-tools">*/}
-          {/*  <ul className="nk-quick-nav">*/}
-          {/*    <li className="chats-dropdown">*/}
-          {/*      <ChatDropdown />*/}
-          {/*    </li>*/}
-          {/*    <li className="language-dropdown d-none d-sm-block mr-n1">*/}
-          {/*      <LanguageHead />*/}
-          {/*    </li>*/}
-          {/*    <li className="user-dropdown">*/}
-          {/*      <User />*/}
-          {/*    </li>*/}
-          {/*  </ul>*/}
-          {/*</div>*/}
         </div>
       </div>
     </div>
