@@ -21,6 +21,9 @@ export class ErrorHandling {
       const {invalidValue, key} = error as unknown as any;
       return this.invalidValue(key, invalidValue);
     }
+    if (error.name === 'Common') {
+      return this.common();
+    }
   }
 
   private notFound(value: unknown) {
@@ -46,6 +49,12 @@ export class ErrorHandling {
   private invalidValue(key: string, value: unknown) {
     return {
       message: `Invalid value ${value} as ${key}`,
+      code: 400,
+    };
+  }
+  private common() {
+    return {
+      message: 'There was an error, please try again later',
       code: 400,
     };
   }

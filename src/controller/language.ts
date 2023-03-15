@@ -25,14 +25,27 @@ export class LanguageController {
   }
 
   public attach(app?: Express.Application) {
-    return this.routes.get('/:language', this.get.bind(this)).post('/', this.create.bind(this));
+    return this.routes
+      .get('/', this.getAll.bind(this))
+      .get('/:language', this.get.bind(this))
+      .post('/', this.create.bind(this));
   }
 
+  private async getAll(req: Request, res: Response, next: NextFunction): Promise<Response> {
+    try {
+      const result = await this.service.getMany();
+      return res.status(200).json(result);
+    } catch (error) {
+      error.name = 'Common';
+      const {message, code} = this.errorHandler.getErrorType(error, req.params.language);
+      res.status(code).json({message});
+    }
+  }
   private async get(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
       LanguageController.getLanguageValidation(req.params.language);
       const result = await this.service.get(req.params.language);
-      return res.status(201).json(result);
+      return res.status(200).json(result);
     } catch (error) {
       const {message, code} = this.errorHandler.getErrorType(error, req.params.language);
       res.status(code).json({message});
@@ -42,7 +55,7 @@ export class LanguageController {
     try {
       LanguageController.createPayloadValidation(req.body);
       const result = await this.service.create(req.body);
-      return res.status(200).json(result);
+      return res.status(201).json(result);
     } catch (error) {
       console.log(error);
       const {message, code} = this.errorHandler.getErrorType(error, req.body);
