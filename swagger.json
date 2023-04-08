@@ -301,7 +301,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "code": {
                   "type": "string",
                   "example": "en-UK",
                   "description": "ISO code of language. Example en-US",
@@ -1234,11 +1234,17 @@
           "example": 12215474745467,
           "description": "Unix time of last change"
         },
-        "name": {
+        "code": {
           "type": "string",
           "example": "en-US",
           "description": "ISO based language code"
         },
+        "country": {
+          "type": "string",
+          "example": "United States of America",
+          "description": "Country full name"
+        },
+        ,
         "isDisabled": {
           "type": "boolean",
           "example": false,

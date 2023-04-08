@@ -11,17 +11,19 @@ export class LanguageController {
   private readonly errorHandler = new ErrorHandling(Language);
 
   static createPayloadValidation(values: any) {
-    const required = ['name'];
+    const required = ['code'];
     for (const key of required) {
       if (!values[key]) throw new PayloadError(key);
     }
-    const findCountry = countries.find((country) => country.code === values.name);
-    if (!findCountry) throw new InalidValueError(values.name, 'name');
+    const findCountry = countries.find((country) => country.code === values.code);
+    if (!findCountry) throw new InalidValueError(values.code, 'code');
+    return findCountry.country;
   }
 
   static getLanguageValidation(values: any) {
     const findCountry = countries.find((country) => country.code === values);
-    if (!findCountry) throw new InalidValueError(values, 'name');
+    if (!findCountry) throw new InalidValueError(values, 'code');
+    return findCountry.country;
   }
 
   public attach(app?: Express.Application) {
@@ -53,8 +55,8 @@ export class LanguageController {
   }
   private async create(req: Request, res: Response, next: NextFunction) {
     try {
-      LanguageController.createPayloadValidation(req.body);
-      const result = await this.service.create(req.body);
+      const country = LanguageController.createPayloadValidation(req.body);
+      const result = await this.service.create({...req.body, country});
       return res.status(201).json(result);
     } catch (error) {
       console.log(error);

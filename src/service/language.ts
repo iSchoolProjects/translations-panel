@@ -24,6 +24,7 @@ export class LanguageService {
   public async create(newLaguage: ILanguageCreate): Promise<Language> {
     const language = new Language();
     language.code = newLaguage.code;
+    language.country = newLaguage.country;
     return this.repository.create(language);
   }
 
