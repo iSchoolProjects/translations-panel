@@ -17,8 +17,8 @@ export default class NamespaceService {
   private readonly repository = new NamespaceRepository();
   private readonly languageService = new LanguageService();
 
-  public async getOne(id: number): Promise<NameSpace> {
-    return this.repository.getOne(id);
+  public async getOne(language: string, name: string): Promise<NameSpace> {
+    return this.repository.getOne(language, name);
   }
 
   public async create(namespace: INamespace): Promise<NameSpace> {
@@ -36,3 +36,10 @@ export default class NamespaceService {
     return this.repository.delete(id);
   }
 }
+
+// -> Table scan on t  (cost=0.35 rows=1) (actual time=0.009..0.009 rows=0 loops=1)
+
+// -> Filter: (t.languageId = '2')  (cost=0.35 rows=1) (actual time=0.005..0.005 rows=0 loops=1)
+//     -> Index lookup on t using FK_3b868b38fa22dedfb286538fffa (namespaceId='4')  (cost=0.35 rows=1) (actual time=0.004..0.004 rows=0 loops=1)
+
+//     -> Index lookup on t using FK_3b868b38fa22dedfb286538fffa (namespaceId='4')  (cost=0.35 rows=1) (actual time=0.006..0.006 rows=0 loops=1)

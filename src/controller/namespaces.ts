@@ -11,12 +11,12 @@ export class NamespaceController {
   private readonly errorHandler = new ErrorHandling(NameSpace);
 
   static createPayloadValidation(values: any) {
-    const required = ['name', 'language'];
+    const required = ['name'];
     for (const key of required) {
       if (!values[key]) throw new PayloadError(key);
     }
-    const findCountry = countries.find((country) => country.code === values.language);
-    if (!findCountry) throw new InalidValueError(values.language, 'language');
+    // const findCountry = countries.find((country) => country.code === values.language);
+    // if (!findCountry) throw new InalidValueError(values.language, 'language');
   }
 
   static updatePayloadValidation(values: any) {
@@ -33,15 +33,15 @@ export class NamespaceController {
 
   public attach(app?: Express.Application) {
     return this.routes
-      .get('/:id/', this.get.bind(this))
-      .post('/', this.create.bind(this))
-      .put('/:id', this.update.bind(this))
-      .delete('/:id', this.delete.bind(this));
+      .get('/:language/:name', this.get.bind(this))
+      .post('/:language', this.create.bind(this))
+      .put('/:language/:name', this.update.bind(this))
+      .delete('/:language/:name', this.delete.bind(this));
   }
 
   private async get(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const result = await this.service.getOne(+req.params.id);
+      const result = await this.service.getOne(req.params.language, req.params.name);
       return res.status(200).json(result);
     } catch (error) {
       const {message, code} = this.errorHandler.getErrorType(error, {...req.params});
@@ -51,7 +51,7 @@ export class NamespaceController {
   private async create(req: Request, res: Response, next: NextFunction) {
     try {
       NamespaceController.createPayloadValidation(req.body);
-      const result = await this.service.create(req.body);
+      const result = await this.service.create({...req.body, language: req.params.language});
       return res.status(201).json(result);
     } catch (error) {
       const {message, code} = this.errorHandler.getErrorType(error, req.body);
