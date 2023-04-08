@@ -1244,7 +1244,6 @@
           "example": "United States of America",
           "description": "Country full name"
         },
-        ,
         "isDisabled": {
           "type": "boolean",
           "example": false,
