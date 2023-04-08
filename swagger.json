@@ -1055,6 +1055,40 @@
       }
     },
     "/namespaces/{id}": {
+      "get": {
+        "tags": ["Namespace data"],
+        "summary": "Gets namespace data",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id of the namespace",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Language"
+            }
+          },
+
+          "400": {
+            "description": "Missing argument",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Missing name in the playload"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": ["Namespace data"],
         "summary": "Updates namespace name",

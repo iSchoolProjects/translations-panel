@@ -7,7 +7,7 @@ export class NamespaceRepository {
   private readonly query = AppDataSource.getRepository(NameSpace);
 
   public async getOne(id: number): Promise<NameSpace> {
-    return this.query.findOne({where: {id}, relations: ['translations']});
+    return this.query.findOneOrFail({where: {id}, relations: ['translations']});
   }
   public async findOne(id: number): Promise<NameSpace> {
     return this.query.findOneOrFail({where: {id}});

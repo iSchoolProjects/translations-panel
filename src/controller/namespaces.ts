@@ -44,7 +44,7 @@ export class NamespaceController {
       const result = await this.service.getOne(+req.params.id);
       return res.status(200).json(result);
     } catch (error) {
-      const {message, code} = this.errorHandler.getErrorType(error, req.params.language);
+      const {message, code} = this.errorHandler.getErrorType(error, {...req.params});
       res.status(code).json({message});
     }
   }
