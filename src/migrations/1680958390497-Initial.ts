@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InitialMigrations1678640850830 implements MigrationInterface {
-    name = 'InitialMigrations1678640850830'
+export class Initial1680958390497 implements MigrationInterface {
+    name = 'Initial1680958390497'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -37,6 +37,7 @@ export class InitialMigrations1678640850830 implements MigrationInterface {
                 \`updateAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
                 \`name\` varchar(255) NOT NULL,
                 \`languageId\` int NOT NULL,
+                \`isCompleted\` tinyint NOT NULL DEFAULT 0,
                 UNIQUE INDEX \`IDX_c43106713de3d201624ebe865b\` (\`name\`, \`languageId\`),
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
@@ -46,9 +47,10 @@ export class InitialMigrations1678640850830 implements MigrationInterface {
                 \`id\` int NOT NULL AUTO_INCREMENT,
                 \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
                 \`updateAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-                \`name\` varchar(255) NOT NULL,
+                \`code\` varchar(255) NOT NULL,
                 \`isDisabled\` tinyint NOT NULL DEFAULT 0,
-                UNIQUE INDEX \`IDX_7df7d1e250ea2a416f078a631f\` (\`name\`),
+                \`country\` varchar(255) NOT NULL,
+                UNIQUE INDEX \`IDX_465b3173cdddf0ac2d3fe73a33\` (\`code\`),
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
         `);
@@ -84,7 +86,7 @@ export class InitialMigrations1678640850830 implements MigrationInterface {
             ALTER TABLE \`language_version\` DROP FOREIGN KEY \`FK_cb0a05d3fca0a698ee16ac06df4\`
         `);
         await queryRunner.query(`
-            DROP INDEX \`IDX_7df7d1e250ea2a416f078a631f\` ON \`language\`
+            DROP INDEX \`IDX_465b3173cdddf0ac2d3fe73a33\` ON \`language\`
         `);
         await queryRunner.query(`
             DROP TABLE \`language\`

@@ -9,8 +9,8 @@ export class LanguageRepository {
     return this.query.find({where: {isDisabled: false}, relations: ['namespace']});
   }
 
-  public async getOne(name: string): Promise<Language> {
-    return this.query.findOneOrFail({where: {name}, relations: ['namespace']});
+  public async getOne(code: string): Promise<Language> {
+    return this.query.findOneOrFail({where: {code}, relations: ['namespace']});
   }
 
   public async create(Language: Language): Promise<Language> {
@@ -18,7 +18,7 @@ export class LanguageRepository {
   }
 
   public async update(Language: Language): Promise<UpdateResult> {
-    const getLanguage = await this.getOne(Language.name);
+    const getLanguage = await this.getOne(Language.code);
     Object.assign(getLanguage, Language);
     return this.query.update({id: getLanguage.id}, getLanguage);
   }

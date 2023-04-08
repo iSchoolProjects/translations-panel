@@ -3,7 +3,8 @@ import {Language} from '../entity/language';
 import {LanguageRepository} from '../repository/language';
 
 interface ILanguageCreate {
-  name: string;
+  code: string;
+  country: string;
 }
 interface ILanguageUpdate extends ILanguageCreate {
   isDisabled: boolean;
@@ -22,12 +23,12 @@ export class LanguageService {
 
   public async create(newLaguage: ILanguageCreate): Promise<Language> {
     const language = new Language();
-    language.name = newLaguage.name;
+    language.code = newLaguage.code;
     return this.repository.create(language);
   }
 
   public async update(update: ILanguageUpdate): Promise<UpdateResult> {
-    const language = await this.repository.getOne(update.name);
+    const language = await this.repository.getOne(update.code);
     Object.assign(language, update);
     return this.repository.update(language);
   }

@@ -13,6 +13,9 @@ export class NameSpace extends BaseEntity {
   @Column()
   languageId: number;
 
+  @Column({default: false})
+  isCompleted: boolean;
+
   @ManyToOne(() => Language, (language) => language.namespace)
   language: Language;
 

@@ -2,6 +2,7 @@ import {EnumsController} from './enums';
 import {LanguageController} from './language';
 import {LanguageVersionController} from './language-version';
 import {NamespaceController} from './namespaces';
+import {TranslationsController} from './translations';
 
 const routesMap = [
   {
@@ -20,6 +21,10 @@ const routesMap = [
   {
     route: '/namespaces',
     controller: NamespaceController,
+  },
+  {
+    route: '/translations',
+    controller: TranslationsController,
   },
 ];
 

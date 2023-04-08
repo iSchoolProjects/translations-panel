@@ -5,13 +5,16 @@ import {NameSpace} from './namespace';
 import {Translations} from './translations';
 
 @Entity()
-@Index(['name'], {unique: true})
+@Index(['code'], {unique: true})
 export class Language extends BaseEntity {
   @Column()
-  name: string;
+  code: string;
 
   @Column({default: false})
   isDisabled: boolean;
+
+  @Column()
+  country: string;
 
   @OneToOne(() => LanguageVersion)
   languageVersion: LanguageVersion;
