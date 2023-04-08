@@ -35,7 +35,8 @@ export class NamespaceController {
     return this.routes
       .get('/:id/', this.get.bind(this))
       .post('/', this.create.bind(this))
-      .post('/:id', this.update.bind(this));
+      .put('/:id', this.update.bind(this))
+      .delete('/:id', this.delete.bind(this));
   }
 
   private async get(req: Request, res: Response, next: NextFunction): Promise<Response> {
@@ -60,10 +61,19 @@ export class NamespaceController {
   private async update(req: Request, res: Response, next: NextFunction) {
     try {
       NamespaceController.updatePayloadValidation(req.body);
-      const result = await this.service.update(req.body);
+      const result = await this.service.update({...req.body, id: +req.params.id});
       return res.status(200).json(result);
     } catch (error) {
-      const {message, code} = this.errorHandler.getErrorType(error, req.body);
+      const {message, code} = this.errorHandler.getErrorType(error, {...req.body, ...req.params});
+      res.status(code).json({message});
+    }
+  }
+  private async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.service.delete(+req.params.id);
+      return res.status(204).json(result);
+    } catch (error) {
+      const {message, code} = this.errorHandler.getErrorType(error, null);
       res.status(code).json({message});
     }
   }

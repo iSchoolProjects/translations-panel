@@ -1053,6 +1053,99 @@
           }
         }
       }
+    },
+    "/namespaces/{id}": {
+      "put": {
+        "tags": ["Namespace data"],
+        "summary": "Updates namespace name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id of the namespace",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "common",
+                  "description": "Name of the namespace"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Namespace"
+            }
+          },
+          "409": {
+            "description": "DUPLICATE",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Value {\"name\":\"commo\"} already exists"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing argument",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Missing name in the playload"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Namespace data"],
+        "summary": "Deletes namespace",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id of the namespace",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+
+          "400": {
+            "description": "Missing argument",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Missing name in the playload"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1426,6 +1519,31 @@
               }
             }
           }
+        }
+      }
+    },
+    "Namespace": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": "1"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-03-14T19:10:07.581Z"
+        },
+        "updateAt": {
+          "type": "string",
+          "example": "2023-03-14T19:10:07.581Z"
+        },
+        "name": {
+          "type": "string",
+          "example": "common"
+        },
+        "languageId": {
+          "type": "number",
+          "example": "16"
         }
       }
     }

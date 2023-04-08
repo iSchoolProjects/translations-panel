@@ -28,7 +28,7 @@ export class ErrorHandling {
 
   private notFound(value: unknown) {
     return {
-      message: `${this.entity.name} ${value} not found`,
+      message: `${this.entity.name} ${this.stringify(value as any)} not found`,
       code: 404,
     };
   }
@@ -57,5 +57,9 @@ export class ErrorHandling {
       message: 'There was an error, please try again later',
       code: 400,
     };
+  }
+  private stringify(value: string | object): string {
+    if (typeof value === 'object') return JSON.stringify(value);
+    return value;
   }
 }

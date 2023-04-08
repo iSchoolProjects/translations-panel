@@ -12,7 +12,6 @@ export class LanguageVersionService {
   }
 
   public async create(language: Language): Promise<LanguageVersion> {
-    console.log(language.id);
     const languageVersion = new LanguageVersion();
     languageVersion.languageId = language.id;
     languageVersion.version = new Date().getTime();

@@ -1,4 +1,4 @@
-import {UpdateResult} from 'typeorm';
+import {DeleteResult, UpdateResult} from 'typeorm';
 import {NameSpace} from '../entity/namespace';
 import {NamespaceRepository} from '../repository/namespace';
 import {LanguageService} from './language';
@@ -8,7 +8,7 @@ interface INamespace {
   language: string;
 }
 
-interface IUpdateNameSpace {
+export interface IUpdateNameSpace {
   id: number;
   name: string;
 }
@@ -28,9 +28,11 @@ export default class NamespaceService {
     return this.repository.create(newNamespace);
   }
 
-  public async update(namespace: IUpdateNameSpace): Promise<UpdateResult> {
-    const newNamespace = new NameSpace();
-    Object.assign(newNamespace, namespace);
-    return this.repository.update(newNamespace);
+  public async update(namespace: IUpdateNameSpace): Promise<NameSpace> {
+    await this.repository.update(namespace);
+    return this.repository.findOne(namespace.id);
+  }
+  public async delete(id: number): Promise<DeleteResult> {
+    return this.repository.delete(id);
   }
 }
