@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import {Block, BlockBetween, BlockDes, BlockHead, BlockHeadContent, BlockTitle} from '../../components/block/Block';
 import Content from '../../components/layout/content/Content';
-import HomePageTable from './components/HomePageTable';
+import LanguageTable from './components/LanguageTable';
 import {Button} from 'reactstrap';
 import CustomModal from '../../components/modal/CustomModal';
-import HomePageForm from './components/HomePageForm';
+import LanguageForm from './components/LanguageForm';
 
-const HomePage = () => {
+const LanguagePage = () => {
   const [isCreateOpened, setIsCreateOpened] = useState(false);
+
+  const createLanguageHandler = async () => {
+    setIsCreateOpened(false);
+  };
   return (
     <>
       <Content>
@@ -33,18 +37,18 @@ const HomePage = () => {
           </BlockBetween>
         </BlockHead>
         <Block>
-          <HomePageTable />
+          <LanguageTable />
         </Block>
       </Content>
       <CustomModal
         isModalOpened={isCreateOpened}
         setIsModalOpened={setIsCreateOpened}
-        body={<HomePageForm />}
+        body={<LanguageForm />}
         title="Create new language"
-        saveHandler={() => setIsCreateOpened(false)}
+        saveHandler={createLanguageHandler}
       />
     </>
   );
 };
 
-export default HomePage;
+export default LanguagePage;

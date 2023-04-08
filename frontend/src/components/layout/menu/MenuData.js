@@ -1,7 +1,7 @@
 const menu = [
   {
     text: 'Languages',
-    link: '/',
+    link: '/language',
     isFirstLevel: true,
   },
   {

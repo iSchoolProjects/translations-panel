@@ -1,11 +1,11 @@
 import {Route, Routes} from 'react-router-dom';
 import React from 'react';
-import Homepage from './homepage';
+import LanguagePage from './language';
 
 export function AppRoutes() {
-    return (
-        <Routes>
-            <Route path="/" element={<Homepage/>}/>
-        </Routes>
-    );
+  return (
+    <Routes>
+      <Route path="/language" element={<LanguagePage />} />
+    </Routes>
+  );
 }

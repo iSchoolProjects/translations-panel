@@ -45,7 +45,7 @@ const SideBar = () => {
     <Container>
       <Row>
         <Col xs={12} className="mt-3">
-          <Link to="/">
+          <Link to="/language">
             <img src="https://itmedia.io/wp-content/uploads/2020/12/logo-1.png" alt="itmedia logo" className="w-50" />
           </Link>
         </Col>
