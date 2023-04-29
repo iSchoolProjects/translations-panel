@@ -15,15 +15,15 @@ const routesMap = [
     controller: LanguageController,
   },
   {
-    route: '/language-version',
+    route: '/language/:language/version',
     controller: LanguageVersionController,
   },
   {
-    route: '/namespaces',
+    route: '/language/:language/namespaces',
     controller: NamespaceController,
   },
   {
-    route: '/translations',
+    route: '/language/:language/namespaces/:namespace/translations',
     controller: TranslationsController,
   },
 ];

@@ -5,7 +5,7 @@ import {LanguageService} from '../service/language';
 import {Language} from '../entity/language';
 import {Translations} from '../entity/translations';
 export class TranslationsController {
-  private readonly routes = express.Router();
+  private readonly routes = express.Router({mergeParams: true});
   private readonly service = new Translations();
   private readonly errorHandler = new ErrorHandling(Translations);
 

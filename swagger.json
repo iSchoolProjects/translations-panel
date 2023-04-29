@@ -36,7 +36,7 @@
         }
       }
     },
-    "/language-version/{language}": {
+    "/language/{language}/version": {
       "get": {
         "tags": ["Language version"],
         "summary": "Gets language version for given language",
@@ -789,7 +789,7 @@
         }
       }
     },
-    "/namespaces/{language}": {
+    "/language/{language}/namespaces/": {
       "post": {
         "tags": ["Namespace data"],
         "summary": "Creates new namespace",
@@ -1056,7 +1056,7 @@
         }
       }
     },
-    "/namespaces/{language}/{name}": {
+    "/language/{language}/namespaces/{name}": {
       "get": {
         "tags": ["Namespace data"],
         "summary": "Gets namespace data",

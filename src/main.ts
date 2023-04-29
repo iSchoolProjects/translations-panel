@@ -6,7 +6,7 @@ dotenv.config();
 import 'reflect-metadata';
 
 // express
-import express, {NextFunction, Request, Response} from 'express';
+import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 // typeorm setup
@@ -42,7 +42,6 @@ app.use(isJSONMiddleware);
 
 registerRoutes(app);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.listen(process.env.APP_PORT, () => {
   console.log('Running', process.env.APP_PORT);
 });

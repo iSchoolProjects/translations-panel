@@ -4,11 +4,11 @@ import {LanguageVersion} from '../entity/language-version';
 export class LanguageVersionRepository {
   private readonly query = AppDataSource.getRepository(LanguageVersion);
 
-  public async getOne(name: string): Promise<LanguageVersion> {
+  public async getOne(code: string): Promise<LanguageVersion> {
     return this.query
       .createQueryBuilder('languageVersion')
       .innerJoin('languageVersion.language', 'lang')
-      .where('lang.name=:name', {name})
+      .where('lang.code=:code', {code})
       .getOneOrFail();
   }
 

@@ -6,7 +6,7 @@ import NamespaceService from '../service/namspace';
 import {NameSpace} from '../entity/namespace';
 
 export class NamespaceController {
-  private readonly routes = express.Router();
+  private readonly routes = express.Router({mergeParams: true});
   private readonly service = new NamespaceService();
   private readonly errorHandler = new ErrorHandling(NameSpace);
 

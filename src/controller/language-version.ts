@@ -4,12 +4,12 @@ import {LanguageVersionService} from '../service/language-version';
 import {ErrorHandling} from '../utilities/errors/error-handling';
 
 export class LanguageVersionController {
-  private readonly routes = express.Router();
+  private readonly routes = express.Router({mergeParams: true});
   private readonly service = new LanguageVersionService();
   private readonly errorHandler = new ErrorHandling(LanguageVersion);
 
   public attach(app: Express.Application) {
-    return this.routes.get('/:language', this.get.bind(this));
+    return this.routes.get('/', this.get.bind(this));
   }
 
   private async get(req: Request, res: Response, next: NextFunction): Promise<Response> {

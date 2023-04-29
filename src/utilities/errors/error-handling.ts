@@ -6,24 +6,17 @@ export class ErrorHandling {
   }
 
   public getErrorType(error: Error, values?: unknown) {
-    if (error.name === 'EntityNotFoundError') {
-      return this.notFound(values);
-    }
-    if (error.name === 'QueryFailedError') {
-      if (error.message.includes('ER_DUP_ENTRY')) {
-        return this.duplicate(values);
-      }
-    }
-    if (error.name === 'MissingArgument') {
-      return this.missingArgument((error as unknown as any).requiredArguments);
-    }
+    if (error.name === 'EntityNotFoundError') return this.notFound(values);
+
+    if (error.name === 'QueryFailedError' && error.message.includes('ER_DUP_ENTRY')) return this.duplicate(values);
+
+    if (error.name === 'MissingArgument') return this.missingArgument((error as unknown as any).requiredArguments);
+
     if (error.name === 'InvalidValue') {
       const {invalidValue, key} = error as unknown as any;
       return this.invalidValue(key, invalidValue);
     }
-    if (error.name === 'Common') {
-      return this.common();
-    }
+    if (error.name === 'Common') return this.common();
   }
 
   private notFound(value: unknown) {
