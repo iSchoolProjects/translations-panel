@@ -1,34 +1,11 @@
-import express, {NextFunction, Request, Response} from 'express';
-import {InalidValueError, PayloadError} from '../utilities/errors/custom-error';
+import {NextFunction, Request, Response} from 'express';
 import {ErrorHandling} from '../utilities/errors/error-handling';
-import {LanguageService} from '../service/language';
-import {Language} from '../entity/language';
 import {Translations} from '../entity/translations';
-export class TranslationsController {
-  private readonly routes = express.Router({mergeParams: true});
+import {BaseController} from '../base/controller';
+
+export class TranslationsController extends BaseController {
   private readonly service = new Translations();
   private readonly errorHandler = new ErrorHandling(Translations);
-
-  static createPayloadValidation(values: any) {
-    const required = ['name', 'language'];
-    for (const key of required) {
-      if (!values[key]) throw new PayloadError(key);
-    }
-    // const findCountry = countries.find((country) => country.code === values.language);
-    // if (!findCountry) throw new InalidValueError(values.language, 'language');
-  }
-
-  static updatePayloadValidation(values: any) {
-    const required = ['name'];
-    for (const key of required) {
-      if (!values[key]) throw new PayloadError(key);
-    }
-  }
-
-  static getLanguageValidation(values: any) {
-    // const findCountry = countries.find((country) => country.code === values);
-    // if (!findCountry) throw new InalidValueError(values, 'name');
-  }
 
   public attach(app?: Express.Application) {
     return this.routes
@@ -40,7 +17,6 @@ export class TranslationsController {
 
   private async get(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      //   const result = await this.service.get(req.params.id);
       return res.status(200).json({});
     } catch (error) {
       const {message, code} = this.errorHandler.getErrorType(error, {...req.params});

@@ -1,37 +1,14 @@
-import express, {NextFunction, Request, Response} from 'express';
-import {InalidValueError, PayloadError} from '../utilities/errors/custom-error';
+import {NextFunction, Request, Response} from 'express';
 import {ErrorHandling} from '../utilities/errors/error-handling';
-import countries from '../../list.json';
 import NamespaceService from '../service/namspace';
 import {NameSpace} from '../entity/namespace';
+import {BaseController} from '../base/controller';
 
-export class NamespaceController {
-  private readonly routes = express.Router({mergeParams: true});
+export class NamespaceController extends BaseController {
   private readonly service = new NamespaceService();
   private readonly errorHandler = new ErrorHandling(NameSpace);
 
-  static createPayloadValidation(values: any) {
-    const required = ['name'];
-    for (const key of required) {
-      if (!values[key]) throw new PayloadError(key);
-    }
-    // const findCountry = countries.find((country) => country.code === values.language);
-    // if (!findCountry) throw new InalidValueError(values.language, 'language');
-  }
-
-  static updatePayloadValidation(values: any) {
-    const required = ['name'];
-    for (const key of required) {
-      if (!values[key]) throw new PayloadError(key);
-    }
-  }
-
-  static getLanguageValidation(values: any) {
-    const findCountry = countries.find((country) => country.code === values);
-    if (!findCountry) throw new InalidValueError(values, 'name');
-  }
-
-  public attach(app?: Express.Application) {
+  public attach() {
     return this.routes
       .get('/:language/:name', this.get.bind(this))
       .post('/:language', this.create.bind(this))
@@ -50,7 +27,6 @@ export class NamespaceController {
   }
   private async create(req: Request, res: Response, next: NextFunction) {
     try {
-      NamespaceController.createPayloadValidation(req.body);
       const result = await this.service.create({...req.body, language: req.params.language});
       return res.status(201).json(result);
     } catch (error) {
@@ -60,7 +36,6 @@ export class NamespaceController {
   }
   private async update(req: Request, res: Response, next: NextFunction) {
     try {
-      NamespaceController.updatePayloadValidation(req.body);
       const result = await this.service.update({...req.body, id: +req.params.id});
       return res.status(200).json(result);
     } catch (error) {
