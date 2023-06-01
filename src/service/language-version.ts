@@ -11,8 +11,9 @@ export class LanguageVersionService {
     return this.repository.getOne(language);
   }
 
-  public async create(language: Language): Promise<LanguageVersion> {
+  public async create(languageName: string): Promise<LanguageVersion> {
     const languageVersion = new LanguageVersion();
+    const language = await this.language.get(languageName);
     languageVersion.languageId = language.id;
     languageVersion.version = new Date().getTime();
     return this.repository.create(languageVersion);

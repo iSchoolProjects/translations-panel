@@ -1,32 +1,14 @@
-import express, {NextFunction, Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import {Language} from '../entity/language';
 import {LanguageService} from '../service/language';
-import {InalidValueError, PayloadError} from '../utilities/errors/custom-error';
 import {ErrorHandling} from '../utilities/errors/error-handling';
-import countries from '../../list.json';
+import {BaseController} from '../base/controller';
 
-export class LanguageController {
-  private readonly routes = express.Router();
+export class LanguageController extends BaseController {
   private readonly service = new LanguageService();
   private readonly errorHandler = new ErrorHandling(Language);
 
-  static createPayloadValidation(values: any) {
-    const required = ['code'];
-    for (const key of required) {
-      if (!values[key]) throw new PayloadError(key);
-    }
-    const findCountry = countries.find((country) => country.code === values.code);
-    if (!findCountry) throw new InalidValueError(values.code, 'code');
-    return findCountry.country;
-  }
-
-  static getLanguageValidation(values: any) {
-    const findCountry = countries.find((country) => country.code === values);
-    if (!findCountry) throw new InalidValueError(values, 'code');
-    return findCountry.country;
-  }
-
-  public attach(app?: Express.Application) {
+  public attach() {
     return this.routes
       .get('/', this.getAll.bind(this))
       .get('/:language', this.get.bind(this))
@@ -45,7 +27,6 @@ export class LanguageController {
   }
   private async get(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      LanguageController.getLanguageValidation(req.params.language);
       const result = await this.service.get(req.params.language);
       return res.status(200).json(result);
     } catch (error) {
@@ -55,8 +36,7 @@ export class LanguageController {
   }
   private async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const country = LanguageController.createPayloadValidation(req.body);
-      const result = await this.service.create({...req.body, country});
+      const result = await this.service.create({...req.body, country: req.params.language});
       return res.status(201).json(result);
     } catch (error) {
       console.log(error);
