@@ -2,9 +2,6 @@ import {Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn} from
 
 @Entity()
 export abstract class BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @CreateDateColumn()
   createdAt: Date;
 

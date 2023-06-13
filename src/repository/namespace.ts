@@ -15,18 +15,15 @@ export class NamespaceRepository {
       .andWhere('lng.code=:language', {language})
       .getOneOrFail();
   }
-  public async findOne(id: number): Promise<NameSpace> {
-    return this.query.findOneOrFail({where: {id}});
-  }
 
   public async create(NameSpace: NameSpace): Promise<NameSpace> {
     return this.query.save(NameSpace);
   }
 
   public async update(NameSpace: IUpdateNameSpace): Promise<UpdateResult> {
-    return this.query.update({id: NameSpace.id}, {...NameSpace});
+    return this.query.update({name: NameSpace.name}, {name: NameSpace.newName});
   }
   public async delete(id: number): Promise<DeleteResult> {
-    return this.query.delete({id});
+    return this.query.delete({});
   }
 }

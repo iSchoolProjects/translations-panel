@@ -1,4 +1,4 @@
-import {Entity, Column, OneToOne, OneToMany, Index, JoinColumn} from 'typeorm';
+import {Entity, Column, OneToOne, OneToMany, Index, PrimaryColumn} from 'typeorm';
 import {BaseEntity} from '../base/entity';
 import {LanguageVersion} from './language-version';
 import {NameSpace} from './namespace';
@@ -7,7 +7,7 @@ import {Translations} from './translations';
 @Entity()
 @Index(['code'], {unique: true})
 export class Language extends BaseEntity {
-  @Column()
+  @PrimaryColumn()
   code: string;
 
   @Column({default: false})

@@ -4,8 +4,8 @@ import {Translations} from '../entity/translations';
 export class TranslationRepository {
   private readonly query = AppDataSource.getRepository(Translations);
 
-  public async getOne(key: string, namespaceId: number, languageId: number): Promise<Translations> {
-    return this.query.findOne({where: {key, languageId, namespaceId}});
+  public async getOne(key: string, namespace: string, code: string): Promise<Translations> {
+    return this.query.findOne({where: {key, code, namespace}});
   }
 
   public async create(Translations: Translations): Promise<Translations> {

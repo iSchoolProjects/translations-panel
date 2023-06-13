@@ -20,6 +20,6 @@ export class LanguageRepository {
   public async update(Language: Language): Promise<UpdateResult> {
     const getLanguage = await this.getOne(Language.code);
     Object.assign(getLanguage, Language);
-    return this.query.update({id: getLanguage.id}, getLanguage);
+    return this.query.update({code: getLanguage.code}, getLanguage);
   }
 }

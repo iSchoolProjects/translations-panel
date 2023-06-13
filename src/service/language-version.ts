@@ -1,4 +1,3 @@
-import {Language} from '../entity/language';
 import {LanguageVersion} from '../entity/language-version';
 import {LanguageVersionRepository} from '../repository/version';
 import {LanguageService} from './language';
@@ -14,7 +13,6 @@ export class LanguageVersionService {
   public async create(languageName: string): Promise<LanguageVersion> {
     const languageVersion = new LanguageVersion();
     const language = await this.language.get(languageName);
-    languageVersion.languageId = language.id;
     languageVersion.version = new Date().getTime();
     return this.repository.create(languageVersion);
   }
@@ -23,7 +21,6 @@ export class LanguageVersionService {
     const language = await this.language.get(name);
     const languageVersion = new LanguageVersion();
     languageVersion.language = language;
-    languageVersion.id = language.languageVersion.id;
     languageVersion.version = new Date().getTime();
     return this.repository.update(languageVersion);
   }

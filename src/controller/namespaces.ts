@@ -36,7 +36,7 @@ export class NamespaceController extends BaseController {
   }
   private async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await this.service.update({...req.body, id: +req.params.id});
+      const result = await this.service.update({...req.body, id: +req.params.id}, req.params.language);
       return res.status(200).json(result);
     } catch (error) {
       const {message, code} = this.errorHandler.getErrorType(error, {...req.body, ...req.params});

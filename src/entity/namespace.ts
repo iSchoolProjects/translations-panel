@@ -1,4 +1,4 @@
-import {Entity, Column, ManyToOne, Index, OneToMany} from 'typeorm';
+import {Entity, Column, ManyToOne, Index, OneToMany, PrimaryColumn} from 'typeorm';
 import {ForeignKeyMetadata} from 'typeorm/metadata/ForeignKeyMetadata';
 import {BaseEntity} from '../base/entity';
 import {Language} from './language';
@@ -10,8 +10,8 @@ export class NameSpace extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
-  languageId: number;
+  @PrimaryColumn()
+  code: string;
 
   @Column({default: false})
   isCompleted: boolean;
@@ -19,6 +19,6 @@ export class NameSpace extends BaseEntity {
   @ManyToOne(() => Language, (language) => language.namespace)
   language: Language;
 
-  @OneToMany(() => Translations, (translations) => translations.namespace)
+  @OneToMany(() => Translations, (translations) => translations.namespaces)
   translations: Translations[];
 }

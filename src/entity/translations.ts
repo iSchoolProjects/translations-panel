@@ -1,4 +1,4 @@
-import {Entity, Column, ManyToOne, Index} from 'typeorm';
+import {Entity, Column, ManyToOne, Index, PrimaryColumn} from 'typeorm';
 import {BaseEntity} from '../base/entity';
 import {Language} from './language';
 import {NameSpace} from './namespace';
@@ -6,7 +6,7 @@ import {NameSpace} from './namespace';
 @Entity()
 @Index(['key', 'language', 'namespace'], {unique: true})
 export class Translations extends BaseEntity {
-  @Column()
+  @PrimaryColumn()
   key: string;
 
   @Index({fulltext: true})
@@ -14,16 +14,16 @@ export class Translations extends BaseEntity {
   value: string;
 
   @Column()
-  namespaceId: number;
+  namespace: string;
 
   @Column()
-  languageId: number;
+  code: string;
 
   @Column({default: true})
   approved: boolean;
 
   @ManyToOne(() => NameSpace, (namespace) => namespace.translations)
-  namespace: NameSpace;
+  namespaces: NameSpace;
 
   @ManyToOne(() => Language, (language) => language.translations)
   language: Language;

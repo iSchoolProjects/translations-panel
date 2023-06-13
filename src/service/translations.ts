@@ -11,8 +11,8 @@ interface ITranslation {
 export default class TrabslationsService {
   private readonly repository = new TranslationRepository();
 
-  public async getOne(key: string, namespaceId: number, languageId: number): Promise<Translations> {
-    return this.repository.getOne(key, namespaceId, languageId);
+  public async getOne(key: string, namespace: string, code: string): Promise<Translations> {
+    return this.repository.getOne(key, namespace, code);
   }
 
   public async create(translation: ITranslation): Promise<Translations> {
