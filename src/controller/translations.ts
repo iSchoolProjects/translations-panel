@@ -1,11 +1,16 @@
 import {NextFunction, Request, Response} from 'express';
 import {ErrorHandling} from '../utilities/errors/error-handling';
-import {Translations} from '../entity/translations';
+import {Translation} from '../entity/translations';
 import {BaseController} from '../base/controller';
+import {injectable} from 'inversify';
 
+@injectable()
 export class TranslationsController extends BaseController {
-  private readonly service = new Translations();
-  private readonly errorHandler = new ErrorHandling(Translations);
+  private readonly errorHandler = new ErrorHandling(Translation);
+
+  constructor(private readonly service: Translation) {
+    super();
+  }
 
   public attach(app?: Express.Application) {
     return this.routes

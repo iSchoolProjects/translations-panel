@@ -1,12 +1,17 @@
 import {NextFunction, Request, Response} from 'express';
 import {ErrorHandling} from '../utilities/errors/error-handling';
 import NamespaceService from '../service/namspace';
-import {NameSpace} from '../entity/namespace';
+import {Namespace} from '../entity/namespace';
 import {BaseController} from '../base/controller';
+import {injectable} from 'inversify';
 
+@injectable()
 export class NamespaceController extends BaseController {
-  private readonly service = new NamespaceService();
-  private readonly errorHandler = new ErrorHandling(NameSpace);
+  private readonly errorHandler = new ErrorHandling(Namespace);
+
+  constructor(private readonly service: NamespaceService) {
+    super();
+  }
 
   public attach() {
     return this.routes

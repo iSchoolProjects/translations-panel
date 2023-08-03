@@ -1,7 +1,8 @@
 import {DeleteResult, UpdateResult} from 'typeorm';
-import {NameSpace} from '../entity/namespace';
+import {Namespace} from '../entity/namespace';
 import {NamespaceRepository} from '../repository/namespace';
 import {LanguageService} from './language';
+import {injectable} from 'inversify';
 
 interface INamespace {
   name: string;
@@ -14,22 +15,22 @@ export interface IUpdateNameSpace {
   newName: string;
 }
 
+@injectable()
 export default class NamespaceService {
-  private readonly repository = new NamespaceRepository();
-  private readonly languageService = new LanguageService();
+  constructor(private readonly repository: NamespaceRepository, private readonly languageService: LanguageService) {}
 
-  public async getOne(language: string, name: string): Promise<NameSpace> {
+  public async getOne(language: string, name: string): Promise<Namespace> {
     return this.repository.getOne(language, name);
   }
 
-  public async create(namespace: INamespace): Promise<NameSpace> {
+  public async create(namespace: INamespace): Promise<Namespace> {
     const language = await this.languageService.get(namespace.language);
-    const newNamespace = new NameSpace();
+    const newNamespace = new Namespace();
     Object.assign(newNamespace, {...namespace, language: language});
     return this.repository.create(newNamespace);
   }
 
-  public async update(namespace: IUpdateNameSpace, language: string): Promise<NameSpace> {
+  public async update(namespace: IUpdateNameSpace, language: string): Promise<Namespace> {
     await this.repository.update(namespace);
     return this.repository.getOne(language, namespace.name);
   }

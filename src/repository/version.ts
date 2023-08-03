@@ -1,6 +1,8 @@
+import {injectable} from 'inversify';
 import {AppDataSource} from '../data-source';
 import {LanguageVersion} from '../entity/language-version';
 
+@injectable()
 export class LanguageVersionRepository {
   private readonly query = AppDataSource.getRepository(LanguageVersion);
 

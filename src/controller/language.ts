@@ -3,11 +3,14 @@ import {Language} from '../entity/language';
 import {LanguageService} from '../service/language';
 import {ErrorHandling} from '../utilities/errors/error-handling';
 import {BaseController} from '../base/controller';
+import {inject, injectable} from 'inversify';
 
+@injectable()
 export class LanguageController extends BaseController {
-  private readonly service = new LanguageService();
   private readonly errorHandler = new ErrorHandling(Language);
-
+  constructor(private readonly service: LanguageService) {
+    super();
+  }
   public attach() {
     return this.routes
       .get('/', this.getAll.bind(this))
@@ -21,6 +24,7 @@ export class LanguageController extends BaseController {
       return res.status(200).json(result);
     } catch (error) {
       error.name = 'Common';
+      console.log(error, 'aaa');
       const {message, code} = this.errorHandler.getErrorType(error, req.params.language);
       res.status(code).json({message});
     }

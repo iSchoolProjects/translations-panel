@@ -1,10 +1,11 @@
+import {injectable} from 'inversify';
 import {LanguageVersion} from '../entity/language-version';
 import {LanguageVersionRepository} from '../repository/version';
 import {LanguageService} from './language';
 
+@injectable()
 export class LanguageVersionService {
-  private readonly repository = new LanguageVersionRepository();
-  private readonly language = new LanguageService();
+  constructor(private readonly repository: LanguageVersionRepository, private readonly language: LanguageService) {}
 
   public async get(language: string): Promise<LanguageVersion> {
     return this.repository.getOne(language);

@@ -9,10 +9,12 @@ import {
 } from 'typeorm';
 import {Language} from '../entity/language';
 import {LanguageVersionService} from '../service/language-version';
+import {injectable} from 'inversify';
 
+@injectable()
 @EventSubscriber()
 export class LanguageVersionSubscriber implements EntitySubscriberInterface {
-  private readonly languageVersionService = new LanguageVersionService();
+  constructor(private readonly languageVersionService: LanguageVersionService) {}
   /**
    * Called after entity insertion.
    */

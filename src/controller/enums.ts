@@ -1,7 +1,9 @@
 import express, {NextFunction, Request, Response} from 'express';
 import countries from '../../list.json';
 import {BaseController} from '../base/controller';
+import {injectable} from 'inversify';
 
+@injectable()
 export class EnumsController extends BaseController {
   public attach() {
     return this.routes.get('/countries', this.getCountries.bind(this));

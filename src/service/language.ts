@@ -1,6 +1,7 @@
 import {UpdateResult} from 'typeorm';
 import {Language} from '../entity/language';
 import {LanguageRepository} from '../repository/language';
+import {injectable} from 'inversify';
 
 interface ILanguageCreate {
   code: string;
@@ -10,8 +11,9 @@ interface ILanguageUpdate extends ILanguageCreate {
   isDisabled: boolean;
 }
 
+@injectable()
 export class LanguageService {
-  private readonly repository = new LanguageRepository();
+  constructor(private readonly repository: LanguageRepository) {}
 
   public async getMany(): Promise<Language[]> {
     return this.repository.getMany();

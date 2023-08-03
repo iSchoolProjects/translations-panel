@@ -1,12 +1,14 @@
 import {DeleteResult, UpdateResult} from 'typeorm';
 import {AppDataSource} from '../data-source';
-import {NameSpace} from '../entity/namespace';
+import {Namespace} from '../entity/namespace';
 import {IUpdateNameSpace} from '../service/namspace';
+import {injectable} from 'inversify';
 
+@injectable()
 export class NamespaceRepository {
-  private readonly query = AppDataSource.getRepository(NameSpace);
+  private readonly query = AppDataSource.getRepository(Namespace);
 
-  public async getOne(language: string, name: string): Promise<NameSpace> {
+  public async getOne(language: string, name: string): Promise<Namespace> {
     return this.query
       .createQueryBuilder('nam')
       .innerJoin('language', 'lng', 'lng.id=nam.languageId')
@@ -16,7 +18,7 @@ export class NamespaceRepository {
       .getOneOrFail();
   }
 
-  public async create(NameSpace: NameSpace): Promise<NameSpace> {
+  public async create(NameSpace: Namespace): Promise<Namespace> {
     return this.query.save(NameSpace);
   }
 

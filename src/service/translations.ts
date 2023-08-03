@@ -1,4 +1,5 @@
-import {Translations} from '../entity/translations';
+import {injectable} from 'inversify';
+import {Translation} from '../entity/translations';
 import {TranslationRepository} from '../repository/translations';
 
 interface ITranslation {
@@ -8,26 +9,27 @@ interface ITranslation {
   namespaceId: number;
 }
 
-export default class TrabslationsService {
-  private readonly repository = new TranslationRepository();
+@injectable()
+export default class TranslationsService {
+  constructor(private readonly repository: TranslationRepository) {}
 
-  public async getOne(key: string, namespace: string, code: string): Promise<Translations> {
+  public async getOne(key: string, namespace: string, code: string): Promise<Translation> {
     return this.repository.getOne(key, namespace, code);
   }
 
-  public async create(translation: ITranslation): Promise<Translations> {
-    const translations = new Translations();
+  public async create(translation: ITranslation): Promise<Translation> {
+    const translations = new Translation();
     Object.assign(translations, translation);
     return this.repository.create(translations);
   }
 
-  public async update(translations: ITranslation): Promise<Translations> {
-    const newTranslation = new Translations();
+  public async update(translations: ITranslation): Promise<Translation> {
+    const newTranslation = new Translation();
     Object.assign(newTranslation, translations);
     return this.repository.create(newTranslation);
   }
 
-  public async findByValue(value: string): Promise<Translations[]> {
+  public async findByValue(value: string): Promise<Translation[]> {
     return this.repository.findByValue(value);
   }
 }
